@@ -10,10 +10,10 @@ const formatComment = ({ date, name, comment }) => {
   return stringComments;
 };
 
-const displayComments = (comments, response) => {
+const displayComments = (comments, request, response) => {
   const formattedComments = comments.map(formatComment).join('');
 
-  const template = fs.readFileSync('./public/guestBookTemplate.html', 'utf-8');
+  const template = request.template;
   const mainPage = template.replace('__COMMENTS__', formattedComments);
   fs.writeFileSync('./public/guestBook.html', mainPage, 'utf-8');
 
@@ -23,8 +23,7 @@ const displayComments = (comments, response) => {
 const storeComments = (request, response) => {
   const date = new Date().toLocaleString();
 
-  const existingComments = JSON.parse(
-    fs.readFileSync('./public/comments.json', 'utf-8'));
+  const existingComments = request.comments;
 
   existingComments.unshift({
     date: date,
@@ -32,7 +31,7 @@ const storeComments = (request, response) => {
     comment: request.comment
   });
 
-  displayComments(existingComments, response);
+  displayComments(existingComments, request, response);
   fs.writeFileSync('./public/comments.json', JSON.stringify(existingComments));
 
   return;
