@@ -1,11 +1,11 @@
 const basicHandler = (request, response) => {
   const { uri } = request;
-  if (uri === '/Abeliophyllum') {
+  if (uri === '/downloadAbeliophyllum') {
     response.send('Abeliophyllum');
     return true;
   }
 
-  if (uri === '/Ageratum') {
+  if (uri === '/downloadAgeratum') {
     response.send('Ageratum');
     return true;
   }
