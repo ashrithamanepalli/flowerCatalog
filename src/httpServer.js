@@ -28,7 +28,7 @@ const onConnection = (socket, handler) => {
 const startServer = (port, handler) => {
   const server = createServer((socket) => onConnection(socket, handler));
 
-  server.listen(8765, () => {
+  server.listen(port, () => {
     console.log(`listening on ${port}`);
   });
 };

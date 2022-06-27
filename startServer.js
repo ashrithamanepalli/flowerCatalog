@@ -13,5 +13,5 @@ const PATH = process.argv.slice(2);
 
 const handlers = [createFileContentServer(...PATH), basicHandler, errorHandler];
 
-const PORT = 8765;
+const PORT = 6789;
 startServer(PORT, handle(handlers, ...PATH));
