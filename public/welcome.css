@@ -1,0 +1,18 @@
+.pageTitle {
+  text-align: center;
+}
+
+.caption {
+  text-align: right;
+}
+
+.spaceAbove {
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.information {
+  display: flex;
+  align-items: center;
+}
