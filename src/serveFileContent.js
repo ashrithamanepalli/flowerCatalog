@@ -38,6 +38,7 @@ const createFileContentServer = (directory) => {
   return ({ uri }, response) => {
     let fileName = directory + uri;
 
+    console.log(fileName);
     if (!fs.existsSync(fileName) || uri === '/') {
       return false;
     }

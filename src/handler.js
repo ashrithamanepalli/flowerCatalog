@@ -2,18 +2,24 @@ const fs = require('fs');
 
 const displayComments = (response) => {
   let stringComments = '';
-  const comments = JSON.parse(fs.readFileSync('./public/comments.json', 'utf-8'));
+  const comments = JSON.parse(
+    fs.readFileSync('./public/comments.json', 'utf-8'));
   comments.forEach(({ date, name, comment }) => {
-    stringComments += `Date : ${date} Name : ${name} Comment : ${comment}\n`
+    const parsedComments = comment.replace('+', ' ');
+    stringComments +=
+      `Date : ${date} Name : ${name} Comment : ${parsedComments}\n`
   });
+
   response.send(stringComments);
 };
 
 const storeComments = (request) => {
   const date = new Date;
 
-  const existingComments = JSON.parse(fs.readFileSync('./public/comments.json', 'utf-8'));
-  existingComments.unshift({ date: date, name: request.name, comment: request.comment });
+  const existingComments = JSON.parse(
+    fs.readFileSync('./public/comments.json', 'utf-8'));
+  existingComments.unshift(
+    { date: date, name: request.name, comment: request.comment });
 
   fs.writeFileSync('./public/comments.json', JSON.stringify(existingComments));
   return;
