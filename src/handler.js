@@ -1,12 +1,12 @@
 const basicHandler = (request, response) => {
   const { uri } = request;
   if (uri === '/Abeliophyllum') {
-    console.log('Abeliophyllum');
+    response.send('Abeliophyllum');
     return true;
   }
 
   if (uri === '/Ageratum') {
-    console.log('Ageratum');
+    response.send('Ageratum');
     return true;
   }
   return false;
