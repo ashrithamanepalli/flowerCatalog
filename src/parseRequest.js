@@ -5,18 +5,27 @@ const parseComment = (comment) => {
   return parsedComment;
 };
 
-const parseUri = (rawUri) => {
+const getQueryParams = (params) => {
   const queryParams = {};
+
+  params.forEach((paramString) => {
+    let [param, value] = paramString.split('=');
+    const parsedComment = parseComment(value);
+    queryParams[param] = parsedComment;
+  })
+
+  return queryParams;
+};
+
+const parseUri = (rawUri) => {
+  let queryParams = {};
   const [uri, queryString] = rawUri.split('?');
+
   if (queryString) {
     const params = queryString.split('&');
-    params.forEach((paramString) => {
-      let [param, value] = paramString.split('=');
-
-      const parsedComment = parseComment(value);
-      queryParams[param] = parsedComment;
-    })
+    queryParams = getQueryParams(params);
   }
+
   return { uri, ...queryParams };
 };
 
