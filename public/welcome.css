@@ -1,5 +1,6 @@
 .pageTitle {
   text-align: center;
+  color: orange;
 }
 
 .caption {
@@ -7,9 +8,9 @@
 }
 
 .spaceAbove {
-  padding-top: 150px;
   display: flex;
   flex-direction: column;
+
 }
 
 .information {
