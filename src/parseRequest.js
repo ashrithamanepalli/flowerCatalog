@@ -1,11 +1,20 @@
+const parseComment = (comment) => {
+  let parsedComment = comment.replaceAll('+', ' ');
+  parsedComment = parsedComment.replaceAll('%0d', '\n');
+
+  return parsedComment;
+};
+
 const parseUri = (rawUri) => {
   const queryParams = {};
   const [uri, queryString] = rawUri.split('?');
   if (queryString) {
     const params = queryString.split('&');
     params.forEach((paramString) => {
-      const [param, value] = paramString.split('=');
-      queryParams[param] = value;
+      let [param, value] = paramString.split('=');
+
+      const parsedComment = parseComment(value);
+      queryParams[param] = parsedComment;
     })
   }
   return { uri, ...queryParams };

@@ -2,9 +2,9 @@ const fs = require('fs');
 
 const formatComment = ({ date, name, comment }) => {
   let stringComments = '';
-  const parsedComments = comment.replace('+', ' ');
+
   const formattedComment =
-    `Date : ${date} Name : ${name} Comment : ${parsedComments}`;
+    `Date : ${date} Name : ${name} Comment : ${comment}`;
   stringComments += `<li>${formattedComment}</li>`;
 
   return stringComments;
@@ -15,8 +15,8 @@ const displayComments = (comments, request, response) => {
 
   const template = request.template;
   const mainPage = template.replace('__COMMENTS__', formattedComments);
-  fs.writeFileSync('./public/guestBook.html', mainPage, 'utf-8');
 
+  response.setHeaders('Content-type', 'text/html')
   response.send(mainPage);
 };
 
@@ -25,11 +25,13 @@ const storeComments = (request, response) => {
 
   const existingComments = request.comments;
 
-  existingComments.unshift({
-    date: date,
-    name: request.name,
-    comment: request.comment
-  });
+  if (request.name) {
+    existingComments.unshift({
+      date: date,
+      name: request.name,
+      comment: request.comment
+    });
+  }
 
   displayComments(existingComments, request, response);
   fs.writeFileSync('./public/comments.json', JSON.stringify(existingComments));
@@ -40,7 +42,7 @@ const storeComments = (request, response) => {
 const basicHandler = (request, response) => {
   let { uri } = request;
 
-  if (uri === '/store-comment') {
+  if (uri === '/guest-book') {
     storeComments(request, response);
     return true;
   }
