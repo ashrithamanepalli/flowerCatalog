@@ -4,10 +4,13 @@ const { createFileContentServer } = require('./handlers/serveFileContent.js');
 const { errorHandler } = require('./handlers/errorHandler.js');
 
 
-const handlers = (path = './public') => {
+const handlers = (path) => {
 
-  const handlers = [setDependencies, basicHandler,
-    createFileContentServer(path), errorHandler
+  const handlers = [
+    setDependencies,
+    basicHandler,
+    createFileContentServer(path),
+    errorHandler
   ];
 
   return (req, res) => {

@@ -38,7 +38,7 @@ const alias = {
   '/': '/welcome.html'
 };
 
-const createFileContentServer = (root) => {
+const createFileContentServer = (root = './public') => {
   const contents = readFiles(root);
 
   return (request, response) => {
