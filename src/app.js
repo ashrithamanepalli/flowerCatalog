@@ -9,7 +9,7 @@ const app = ({ templatePath, commentsPath, rootDirectory }) => {
   const handlers = [
     setDependencies(templatePath, commentsPath),
     basicHandler,
-    createFileContentServer(...rootDirectory),
+    createFileContentServer(rootDirectory),
     errorHandler
   ];
 

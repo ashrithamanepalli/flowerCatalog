@@ -1,7 +1,7 @@
 const { startServer } = require('./src/server/httpServer.js');
 const { app } = require('./src/app.js');
 
-const [...PATH] = process.argv.slice(2);
+const PATH = process.argv[2];
 
 const appConfig = {
   templatePath: './src/template/guestBookTemplate.html',
