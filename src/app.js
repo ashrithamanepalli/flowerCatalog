@@ -4,12 +4,12 @@ const { createFileContentServer } = require('./handlers/serveFileContent.js');
 const { errorHandler } = require('./handlers/errorHandler.js');
 const { createRouter } = require('./server/router.js');
 
-const app = (path) => {
+const app = ({ templatePath, commentsPath, rootDirectory }) => {
 
   const handlers = [
-    setDependencies,
+    setDependencies(templatePath, commentsPath),
     basicHandler,
-    createFileContentServer(path),
+    createFileContentServer(...rootDirectory),
     errorHandler
   ];
 
