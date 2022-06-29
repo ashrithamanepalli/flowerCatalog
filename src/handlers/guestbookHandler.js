@@ -45,7 +45,7 @@ const handleComments = (request, response) => {
   return;
 };
 
-const basicHandler = (request, response) => {
+const guestbookHandler = (request, response) => {
   let { pathname } = request.url;
 
   if (pathname === '/guest-book') {
@@ -61,4 +61,4 @@ const basicHandler = (request, response) => {
   return false;
 };
 
-module.exports = { basicHandler };
+module.exports = { guestbookHandler };

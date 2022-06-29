@@ -1,5 +1,5 @@
 const { setDependencies } = require('./handlers/setDependenciesGuestBook.js');
-const { basicHandler } = require('./handlers/guestbookHandler.js');
+const { guestbookHandler } = require('./handlers/guestbookHandler.js');
 const { createFileContentServer } = require('./handlers/serveFileContent.js');
 const { errorHandler } = require('./handlers/errorHandler.js');
 const { createRouter } = require('./server/router.js');
@@ -12,7 +12,7 @@ const app = ({ templatePath, commentsPath, rootDirectory }) => {
     logRequest,
     parseSearchParams,
     setDependencies(templatePath, commentsPath),
-    basicHandler,
+    guestbookHandler,
     createFileContentServer(rootDirectory),
     errorHandler
   ];
