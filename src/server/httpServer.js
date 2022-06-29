@@ -14,8 +14,6 @@ const getEntries = (searchParams) => {
 const startServer = (port, handler) => {
 
   const server = http.createServer((req, res) => {
-    console.log(req.method, req.url);
-
     req.url = new URL(`http://${req.headers.host}` + req.url);
     req.queryParams = getEntries(req.url.searchParams);
 

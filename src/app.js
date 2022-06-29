@@ -3,10 +3,12 @@ const { basicHandler } = require('./handlers/guestbookHandler.js');
 const { createFileContentServer } = require('./handlers/serveFileContent.js');
 const { errorHandler } = require('./handlers/errorHandler.js');
 const { createRouter } = require('./server/router.js');
+const { logRequest } = require('./handlers/logRequest.js');
 
 const app = ({ templatePath, commentsPath, rootDirectory }) => {
 
   const handlers = [
+    logRequest,
     setDependencies(templatePath, commentsPath),
     basicHandler,
     createFileContentServer(rootDirectory),
