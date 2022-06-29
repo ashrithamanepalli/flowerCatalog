@@ -2,7 +2,6 @@ const fs = require('fs');
 
 const setDependencies = (templatePath, commentsPath) =>
   (req, res) => {
-
     const { pathname } = req.url;
 
     if (pathname.startsWith('/guest-book')) {

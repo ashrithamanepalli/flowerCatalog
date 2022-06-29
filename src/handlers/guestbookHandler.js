@@ -18,7 +18,7 @@ const displayComments = (request, response) => {
   const mainPage = commentsTemplate.replace('__COMMENTS__', formattedComments);
 
   response.end(mainPage);
-  return mainPage;
+  return true;
 };
 
 const handleComments = (request, response) => {
@@ -26,15 +26,9 @@ const handleComments = (request, response) => {
   const { name, comment } = request.queryParams;
 
   const date = new Date().toLocaleString();
-  // const existingComments = comments;
 
   if (name && comment) {
-    comments.unshift({
-      date: date,
-      name: name,
-      comment: comment
-    });
-
+    comments.unshift({ date: date, name: name, comment: comment });
     writeFile(commentsFile, JSON.stringify(comments));
   }
 
@@ -42,19 +36,19 @@ const handleComments = (request, response) => {
   response.setHeader('Location', '/guest-book');
   response.end('');
 
-  return;
+  return true;
 };
 
 const guestbookHandler = (request, response) => {
   let { pathname } = request.url;
 
-  if (pathname === '/guest-book/add-comment') {
-    handleComments(request, response);
+  if (pathname === '/guest-book') {
+    displayComments(request, response);
     return true;
   }
 
-  if (pathname === '/guest-book') {
-    displayComments(request, response);
+  if (pathname === '/guest-book/add-comment') {
+    handleComments(request, response);
     return true;
   }
 
