@@ -9,8 +9,8 @@ const { parseSearchParams } = require('./handlers/parseSearchParams.js');
 const app = ({ templatePath, commentsPath, rootDirectory }) => {
 
   const handlers = [
-    logRequest,
     parseSearchParams,
+    logRequest,
     setDependencies(templatePath, commentsPath),
     guestbookHandler,
     createFileContentServer(rootDirectory),

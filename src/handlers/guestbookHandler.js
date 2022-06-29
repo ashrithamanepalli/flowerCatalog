@@ -26,20 +26,20 @@ const handleComments = (request, response) => {
   const { name, comment } = request.queryParams;
 
   const date = new Date().toLocaleString();
-  const existingComments = comments;
+  // const existingComments = comments;
 
-  if (name) {
-    existingComments.unshift({
+  if (name && comment) {
+    comments.unshift({
       date: date,
       name: name,
       comment: comment
     });
 
-    writeFile(commentsFile, JSON.stringify(existingComments));
+    writeFile(commentsFile, JSON.stringify(comments));
   }
 
   response.statusCode = 302;
-  response.setHeader('Location', '/display-comments');
+  response.setHeader('Location', '/guest-book');
   response.end('');
 
   return;
@@ -48,12 +48,12 @@ const handleComments = (request, response) => {
 const guestbookHandler = (request, response) => {
   let { pathname } = request.url;
 
-  if (pathname === '/guest-book') {
+  if (pathname === '/guest-book/add-comment') {
     handleComments(request, response);
     return true;
   }
 
-  if (pathname === '/display-comments') {
+  if (pathname === '/guest-book') {
     displayComments(request, response);
     return true;
   }

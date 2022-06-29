@@ -5,7 +5,7 @@ const setDependencies = (templatePath, commentsPath) =>
 
     const { pathname } = req.url;
 
-    if (pathname === '/guest-book' || pathname === '/display-comments') {
+    if (pathname.startsWith('/guest-book')) {
       req.writeFile = fs.writeFileSync;
       req.template = fs.readFileSync(templatePath, 'utf-8');
       req.comments = JSON.parse(fs.readFileSync(commentsPath, 'utf-8'));
