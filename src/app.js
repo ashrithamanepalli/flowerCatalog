@@ -2,7 +2,7 @@ const { setDependencies } = require('./handlers/setDependenciesGuestBook.js');
 const { guestbookHandler } = require('./handlers/guestbookHandler.js');
 const { createFileContentServer } = require('./handlers/serveFileContent.js');
 const { errorHandler } = require('./handlers/errorHandler.js');
-const { createRouter } = require('./server/router.js');
+const { createRouter, createAsyncRouter } = require('./server/router.js');
 const { logRequest } = require('./handlers/logRequest.js');
 const { parseSearchParams } = require('./handlers/parseSearchParams.js');
 
@@ -20,4 +20,24 @@ const app = ({ templatePath, commentsPath, rootDirectory }) => {
   return createRouter(handlers);
 };
 
-module.exports = { app };
+const timeOutHandler = (req, res, next) => {
+  if (req.url === '/time-out') {
+    setTimeout(() => {
+      res.end('done time out');
+    }, 5000);
+    return;
+  }
+  next();
+};
+
+const asyncApp = ({ rootDirectory }) => {
+  const handlers = [
+    timeOutHandler,
+    createFileContentServer(rootDirectory),
+    errorHandler
+  ];
+
+  return createAsyncRouter(handlers);
+};
+
+module.exports = { app, asyncApp };

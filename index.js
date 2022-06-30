@@ -1,5 +1,5 @@
 const { startServer } = require('./src/server/httpServer.js');
-const { app } = require('./src/app.js');
+const { app, asyncApp } = require('./src/app.js');
 
 const PATH = process.argv[2];
 
@@ -10,4 +10,4 @@ const appConfig = {
 };
 
 const PORT = 8765;
-startServer(PORT, app(appConfig));
+startServer(PORT, asyncApp(appConfig));
