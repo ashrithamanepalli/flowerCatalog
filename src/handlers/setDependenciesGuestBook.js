@@ -1,16 +1,25 @@
 const fs = require('fs');
+const { GuestBook } = require('./guestBook.js');
 
-const setDependencies = (templatePath, commentsPath) =>
-  (req, res) => {
+const writeFile = (path, content) =>
+  fs.writeFileSync(path, content, 'utf-8');
+
+const readFile = (path) => fs.readFileSync(path, 'utf-8');
+
+const setDependencies = (templatePath, commentsPath) => {
+
+  const guestBook = new GuestBook(commentsPath,
+    templatePath, writeFile, readFile);
+
+  return (req, res) => {
     const { pathname } = req.url;
 
     if (pathname.startsWith('/guest-book')) {
-      req.writeFile = fs.writeFileSync;
-      req.template = fs.readFileSync(templatePath, 'utf-8');
-      req.comments = JSON.parse(fs.readFileSync(commentsPath, 'utf-8'));
-      req.commentsFile = commentsPath;
+      req.guestBook = guestBook;
     }
+
     return false;
   };
+};
 
 module.exports = { setDependencies };
