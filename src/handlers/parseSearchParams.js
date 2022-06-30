@@ -8,11 +8,11 @@ const getEntries = (searchParams) => {
   return queryParams;
 };
 
-const parseSearchParams = (req, res) => {
+const parseSearchParams = (req, res, next) => {
   req.url = new URL(`http://${req.headers.host}` + req.url);
   req.queryParams = getEntries(req.url.searchParams);
 
-  return false;
+  next();
 };
 
-module.exports = { parseSearchParams };
+module.exports = { parseSearchParams, getEntries };

@@ -11,14 +11,14 @@ const setDependencies = (templatePath, commentsPath) => {
   const guestBook = new GuestBook(commentsPath,
     templatePath, writeFile, readFile);
 
-  return (req, res) => {
+  return (req, res, next) => {
     const { pathname } = req.url;
 
     if (pathname.startsWith('/guest-book')) {
       req.guestBook = guestBook;
     }
 
-    return false;
+    next();
   };
 };
 

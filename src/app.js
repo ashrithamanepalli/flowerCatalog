@@ -30,9 +30,13 @@ const timeOutHandler = (req, res, next) => {
   next();
 };
 
-const asyncApp = ({ rootDirectory }) => {
+const asyncApp = ({ templatePath, commentsPath, rootDirectory }) => {
   const handlers = [
+    parseSearchParams,
+    logRequest,
     timeOutHandler,
+    setDependencies(templatePath, commentsPath),
+    guestbookHandler,
     createFileContentServer(rootDirectory),
     errorHandler
   ];
