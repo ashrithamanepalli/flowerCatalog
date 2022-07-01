@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/ashrithamanepalli/flowerCatalog/issues"
   },
-  "homepage": "https://github.com/ashrithamanepalli/flowerCatalog#readme"
+  "homepage": "https://github.com/ashrithamanepalli/flowerCatalog#readme",
+  "dependencies": {
+    "mime-types": "^2.1.35"
+  }
 }
