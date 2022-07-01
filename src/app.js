@@ -5,10 +5,12 @@ const { errorHandler } = require('./handlers/errorHandler.js');
 const { createRouter, createAsyncRouter } = require('./server/router.js');
 const { logRequest } = require('./handlers/logRequest.js');
 const { parseSearchParams } = require('./handlers/parseSearchParams.js');
+const { parseBodyParams } = require('./handlers/parseBodyParams.js');
 
 const app = ({ templatePath, commentsPath, rootDirectory }) => {
 
   const handlers = [
+    parseBodyParams,
     parseSearchParams,
     logRequest,
     setDependencies(templatePath, commentsPath),
@@ -20,21 +22,11 @@ const app = ({ templatePath, commentsPath, rootDirectory }) => {
   return createRouter(handlers);
 };
 
-const timeOutHandler = (req, res, next) => {
-  if (req.url === '/time-out') {
-    setTimeout(() => {
-      res.end('done time out');
-    }, 5000);
-    return;
-  }
-  next();
-};
-
 const asyncApp = ({ templatePath, commentsPath, rootDirectory }) => {
   const handlers = [
+    parseBodyParams,
     parseSearchParams,
     logRequest,
-    timeOutHandler,
     setDependencies(templatePath, commentsPath),
     guestbookHandler,
     createFileContentServer(rootDirectory),

@@ -1,5 +1,3 @@
-const { getEntries } = require('./parseSearchParams.js');
-
 const displayComments = (request, response) => {
   const { guestBook } = request;
   guestBook.loadComments();
@@ -15,31 +13,18 @@ const redirectToDisplay = (request, response) => {
   response.end('');
 };
 
-const getBodyParams = (body) => {
-  const searchParams = new URLSearchParams(body);
-  const bodyParams = getEntries(searchParams);
-  return bodyParams;
-};
-
 const addComment = (request, response) => {
   const { guestBook } = request;
   const date = new Date().toLocaleString();
 
-  let body = '';
-  request.on('data', (data) => {
-    body += data;
-  });
+  const { name, comment } = request.bodyParams;
 
-  request.on('end', () => {
-    const { name, comment } = getBodyParams(body);
+  if (name && comment) {
+    guestBook.addComment({ date: date, name: name, comment: comment });
+    guestBook.storeComments();
+  }
 
-    if (name && comment) {
-      guestBook.addComment({ date: date, name: name, comment: comment });
-      guestBook.storeComments();
-    }
-
-    redirectToDisplay(request, response);
-  });
+  redirectToDisplay(request, response);
 };
 
 const guestbookHandler = (request, response, next) => {
