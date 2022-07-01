@@ -5,6 +5,16 @@
     Flower Catalogue
   </title>
   <link rel="stylesheet" href="css/welcome.css">
+  <script>
+    const hideJug = () => {
+      const image = document.getElementById('1');
+      image.style.visibility = 'hidden';
+      setTimeout(() => {
+        image.style.visibility = '';
+      }, 1000);
+      return;
+    };
+  </script>
 </head>
 
 <body>
@@ -21,7 +31,7 @@
         </ul>
 
         <div class="spaceAbove">
-          <img src="images/animated-flower-image-0021.gif" alt="flowering">
+          <img id="1" onclick="hideJug()" src="images/animated-flower-image-0021.gif" alt="flowering">
           <a href='/guest-book' class="guestBook">Guest Book</a>
         </div>
       </div>
