@@ -6,6 +6,9 @@ const { createRouter, createAsyncRouter } = require('./server/router.js');
 const { logRequest } = require('./handlers/logRequest.js');
 const { parseSearchParams } = require('./handlers/parseSearchParams.js');
 const { parseBodyParams } = require('./handlers/parseBodyParams.js');
+const { loginHandler, injectCookie,
+  validateUser,
+  addUser } = require('./handlers/cookieHandler.js');
 
 const app = ({ templatePath, commentsPath, rootDirectory }) => {
 
@@ -27,6 +30,10 @@ const asyncApp = ({ templatePath, commentsPath, rootDirectory }) => {
     parseBodyParams,
     parseSearchParams,
     logRequest,
+    injectCookie,
+    loginHandler,
+    validateUser,
+    addUser,
     setDependencies(templatePath, commentsPath),
     guestbookHandler,
     createFileContentServer(rootDirectory),
